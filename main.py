@@ -4,6 +4,10 @@ import tkinter as tk
 import ttkbootstrap as ttk
 
 window = tk.Tk()
+window.geometry("600x800")
+window.title("Empty template used")
+
+window.mainloop()
     """):
 
 
@@ -18,8 +22,25 @@ def create_config():
 # Generate Python script and save it to a file
 
 def add_widget():
-    avaliable_widgets = [""]
-    print("Adding a new widget...")
+    available_widgets = ["label", "button", "text", "entry", "checkbox", "radio", "frame"]
+    print(f"Avaliable Widgets:")
+    for index, widget_choice in enumerate(available_widgets, start=1):
+        print(f"{index}. {widget_choice}")
+    choice = input("please choose a widget to add\n")
+    if choice == '1':
+        newlabel = []
+        while True:
+            is_window = input("Is the master a window? (yes/no): ").strip().lower()
+            if is_window == "yes":
+                newlabel.append("master = window")
+                break
+            elif is_window == "no":
+                print("Master is not a window.")
+            else:
+                print("Invalid input. Please enter 'yes' or 'no'.")
+    elif choice == '2':
+        pass
+
 
 def view_widgets():
     print("Viewing widgets...")
@@ -50,7 +71,7 @@ def main():
         if choice == '1':
             load_config()
         elif choice == '2':
-
+            python_code = ""
             while True:
                 print("Widget Menu:")
                 print("1. Add a widget")
