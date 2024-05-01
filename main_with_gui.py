@@ -1,18 +1,43 @@
-def generate_python_script(file_name, python_code = """
+import sys
+import tkinter as tk
+import ttkbootstrap as ttk
+from tkinter import *
+from tkinter import filedialog
+import os
+
+def generate_python_script(python_code2=""""""):
+    python_code1 = """
 import tkinter as tk
 #from tkinter import ttk
 import ttkbootstrap as ttk
+    """
 
+
+    root = tk.Tk()
+    root.withdraw()  # Hide the root window
+    # Set the root window to be always on top
+    root.attributes('-topmost', True)
+
+    file_path = filedialog.asksaveasfilename(initialdir="D:/users/Philli123gaming/Documents/code/Github/tkinter practise",
+                                             defaultextension=".py",
+                                             filetypes=[("Python Files", "*.py"), ("All files", "*.*")])
+
+    print("File path selected:", file_path)
+    if file_path:
+        # Extract the file name from the file path
+        file_name = file_path.split("/")[-1]  # Assuming '/' is the path separator
+        file_name = os.path.splitext(file_name)[0]
+    python_code3 = f"""
 window = tk.Tk()
 window.geometry("600x800")
-window.title("Empty template used")
+window.title("{"Empty template used" if not file_name else file_name}")
 
 window.mainloop()
-    """):
-
-
-    with open(file_name, 'w') as f:
+"""
+    python_code = python_code1 + python_code2 + python_code3
+    with open(file_path, 'w') as f:
         f.write(python_code)
+    print(f"Tasks saved as {file_name} to: {file_path}")
 
 def load_config():
     print("Loading existing config file...")
@@ -57,17 +82,11 @@ def bind_events():
 def save_config():
     print("Saving configuration...")
 
-#
+def exit():
+    sys.exit()
 
 def main():
-    while True:
-        print("1. Load existing config file")
-        print("2. Create a new config file")
-        print("3. Create a quick tkinter file")
-        print("4. Exit")
-
-        choice = input("Enter your choice: ")
-
+    while False:
         if choice == '1':
             load_config()
         elif choice == '2':
@@ -103,13 +122,49 @@ def main():
                     print("Invalid choice. Please try again.")
 
         elif choice == "3":
-            generate_python_script(file_name=input("what would you like to name the new file\n") + ".py")
+            generate_python_script()
         elif choice == '4':
             print("Exiting...")
             break
         else:
             print("Invalid choice. Please try again.")
 
+    window = tk.Tk()
+    main_menu = Frame(window)
+    main_menu.grid(row=0, column=0, sticky="nsew")
+    widget_menu = Frame(window)
+    widget_menu.grid(row=0, column=0, sticky="nsew")
+
+    button1 = Button(main_menu, command=load_config)
+    button1.pack()
+    button2 = Button(main_menu,text="Create new script", command=widget_menu.tkraise)
+    button2.pack()
+    button3 = Button(main_menu, text="Create a quick tkinter file", command=generate_python_script)
+    button3.pack()
+    button4 = Button(main_menu,text="Exit",command=exit)
+    button4.pack()
+
+
+    widget_menu_label = Label(widget_menu, text="Widget Menu")
+    widget_menu_label.pack()
+    button5 = Button(widget_menu)
+    button5.pack()
+    button6 = Button(widget_menu)
+    button6.pack()
+    button7 = Button(widget_menu)
+    button7.pack()
+    button8 = Button(widget_menu)
+    button8.pack()
+    button9 = Button(widget_menu)
+    button9.pack()
+    button10 = Button(widget_menu)
+    button10.pack()
+    button11 = Button(widget_menu,text="Back to main menu", command=main_menu.tkraise)
+    button11.pack()
+    button12 = Button(widget_menu,text="Exit",command=exit)
+    button12.pack()
+
+    main_menu.tkraise()
+    window.mainloop()
 if __name__ == "__main__":
     main()
-
